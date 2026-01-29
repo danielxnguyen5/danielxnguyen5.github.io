@@ -5,7 +5,7 @@ import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 export default defineConfig({
-  base: "/MacOS_Portfolio/",   // GitHub repo name
+  base: "/",
 
   plugins: [react(), tailwindcss()],
 
