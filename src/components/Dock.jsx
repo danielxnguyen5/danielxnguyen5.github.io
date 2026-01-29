@@ -1,7 +1,8 @@
-import React, {useRef} from 'react'
-import { dockApps} from "#constants/index.js";
+// Dock.jsx
+import React, { useRef } from "react";
+import { dockApps } from "#constants/index.js";
 import { Tooltip } from "react-tooltip";
-import {useGSAP} from "@gsap/react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import useWindowStore from "#store/window.js";
 
@@ -14,6 +15,7 @@ const Dock = () => {
         if (!dock) return;
 
         const icons = dock.querySelectorAll(".dock-icon");
+
         const animateIcons = (mouseX) => {
             const { left } = dock.getBoundingClientRect();
 
@@ -21,20 +23,22 @@ const Dock = () => {
                 const { left: iconLeft, width } = icon.getBoundingClientRect();
                 const center = iconLeft - left + width / 2;
                 const distance = Math.abs(mouseX - center);
-                const intensity = Math.exp(-(distance ** 2.5) / 20000 );
+                const intensity = Math.exp(-(distance ** 2.5) / 20000);
 
                 gsap.to(icon, {
                     scale: 1 + 0.25 * intensity,
                     y: -15 * intensity,
                     duration: 0.2,
                     ease: "power1.out",
-                })
-            })
-        }
+                });
+            });
+        };
+
         const handleMouseMove = (e) => {
             const { left } = dock.getBoundingClientRect();
             animateIcons(e.clientX - left);
         };
+
         const resetIcons = () =>
             icons.forEach((icon) =>
                 gsap.to(icon, {
@@ -43,60 +47,125 @@ const Dock = () => {
                     duration: 0.3,
                     ease: "power1.out",
                 })
-            )
-        dock.addEventListener('mousemove', handleMouseMove)
-        dock.addEventListener('mouseleave', resetIcons)
+            );
+
+        dock.addEventListener("mousemove", handleMouseMove);
+        dock.addEventListener("mouseleave", resetIcons);
+
+        // ✅ Auto-hide separator group when tray is empty
+        const tray = document.getElementById("dock-minimized-tray");
+        const group = document.getElementById("dock-tray-group");
+
+        let observer = null;
+
+        if (tray && group) {
+            const syncTrayGroup = () => {
+                if (tray.children.length > 0) group.classList.remove("hidden");
+                else group.classList.add("hidden");
+            };
+
+            syncTrayGroup(); // initial state
+
+            observer = new MutationObserver(syncTrayGroup);
+            observer.observe(tray, { childList: true });
+        }
 
         return () => {
-            dock.removeEventListener('mousemove', handleMouseMove)
-            dock.removeEventListener('mouseleave', resetIcons)
-        }
+            dock.removeEventListener("mousemove", handleMouseMove);
+            dock.removeEventListener("mouseleave", resetIcons);
+            if (observer) observer.disconnect();
+        };
     }, []);
 
-    const toggleApp = (app) => {
-        if (!app.canOpen) return;
+    // ✅ If minimized (tray icon exists + window display none), clicking main dock icon restores it
+    const toggleApp = (id, canOpen) => {
+        if (!canOpen) return;
 
-        const window = windows[app.id];
+        const win = windows[id];
+        if (!win) return;
 
-        if (!window) {
-            console.error(`Window not found: ${app.id}`);
+        const trayIcon = document.querySelector(`[data-minwin="${id}"]`);
+        const winEl = document.getElementById(id);
+
+        // If minimized, restore by "clicking" the tray icon (reuses your existing restore animation)
+        if (winEl && winEl.style.display === "none" && trayIcon) {
+            trayIcon.click();
             return;
         }
 
-        if (window.isOpen) {
-            closeWindow(app.id);
-        } else {
-            openWindow(app.id);
-        }
+        // Normal toggle behavior
+        if (win.isOpen) closeWindow(id);
+        else openWindow(id);
+    };
 
-        console.log(windows);
-    }
+    // OPTIONAL: if you have trash as an app id, set it here so we can place tray right before it.
+    const TRASH_ID = "trash";
+
     return (
         <section id="dock">
             <div ref={dockRef} className="dock-container">
-                {dockApps.map(({ id, name, icon, canOpen}) => (
-                    <div key={id} className="relative flex justify-between">
-                        <button
-                            type="button"
-                            className="dock-icon"
-                            aria-label={name}
-                            data-tooltip-id="dock-tooltip"
-                            data-tooltip-content={name}
-                            data-tooltip-delay-show={150}
-                            disabled={!canOpen}
-                            onClick={() => toggleApp({ id, canOpen})}>
-                            <img
-                                src={`/images/${icon}`}
-                                alt={name}
-                                loading="lazy"
-                                className={canOpen ? " " : "opacity-60"}
-                            />
-                        </button>
-                    </div>
-                ))}
+                {/* Normal apps */}
+                {dockApps
+                    .filter((a) => a.id !== TRASH_ID)
+                    .map(({ id, name, icon, canOpen }) => (
+                        <div key={id} className="relative flex justify-between">
+                            <button
+                                type="button"
+                                className="dock-icon"
+                                aria-label={name}
+                                data-tooltip-id="dock-tooltip"
+                                data-tooltip-content={name}
+                                data-tooltip-delay-show={150}
+                                disabled={!canOpen}
+                                data-windowkey={id}
+                                onClick={() => toggleApp(id, canOpen)}
+                            >
+                                <img
+                                    src={`/images/${icon}`}
+                                    alt={name}
+                                    loading="lazy"
+                                    className={canOpen ? "" : "opacity-60"}
+                                />
+                            </button>
+                        </div>
+                    ))}
+
+                {/* ✅ Separator + Minimized tray */}
+                <div id="dock-tray-group" className="dock-tray-group hidden">
+                    <div className="dock-separator" aria-hidden="true" />
+                    <div id="dock-minimized-tray" className="dock-minimized-tray" />
+                </div>
+
+                {/* Trash at the end */}
+                {dockApps
+                    .filter((a) => a.id === TRASH_ID)
+                    .map(({ id, name, icon, canOpen }) => (
+                        <div key={id} className="relative flex justify-between">
+                            <button
+                                type="button"
+                                className="dock-icon"
+                                aria-label={name}
+                                data-tooltip-id="dock-tooltip"
+                                data-tooltip-content={name}
+                                data-tooltip-delay-show={150}
+                                disabled={!canOpen}
+                                data-windowkey={id}
+                                onClick={() => toggleApp(id, canOpen)}
+                            >
+                                <img
+                                    src={`/images/${icon}`}
+                                    alt={name}
+                                    loading="lazy"
+                                    className={canOpen ? "" : "opacity-60"}
+                                />
+                            </button>
+                        </div>
+                    ))}
+
                 <Tooltip id="dock-tooltip" place="top" className="tooltip" />
             </div>
         </section>
-    )
-}
-export default Dock
+    );
+};
+
+export default Dock;

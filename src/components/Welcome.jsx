@@ -50,14 +50,17 @@ const  setupTextHover = (container, type) => {
 const Welcome = () => {
     const titleRef = useRef(null);
     const subtitleRef = useRef(null);
+    const hintRef = useRef(null);
 
     useGSAP( () => {
         const titleCleanup = setupTextHover(titleRef.current, "title");
         const subtitleCleanup = setupTextHover(subtitleRef.current, "subtitle");
+        const hintCleanup = setupTextHover(hintRef.current, "subtitle");
 
         return () => {
             subtitleCleanup();
             titleCleanup();
+            hintCleanup();
         }
     }, []);
 
@@ -68,6 +71,9 @@ const Welcome = () => {
             <h1 ref={titleRef} className="mt-7">
                 {renderText("portfolio", "text-9xl italic font-georama", 400)}
             </h1>
+            <p ref={hintRef} className="mt-7">
+                {renderText("Click the folders or dock icons to explore", "text-3xl font-georama", 100)}
+            </p>
             <div className="small-screen">
                 <p>This portfolio is designed for desktop/tabled screens only.</p>
             </div>

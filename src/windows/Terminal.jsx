@@ -11,7 +11,7 @@ const Terminal = () => {
     return <>
         <div id='window-header'>
             <WindowControls target="terminal"/>
-            <h2>Tech Stack</h2>
+            <h2>Daniel's Tech Stack — -zsh — 80×24</h2>
         </div>
         <div className='techstack'>
             <p>

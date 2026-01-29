@@ -101,29 +101,25 @@ const blogPosts = [
 
 const techStack = [
     {
-        category: "Frontend",
-        items: ["React.js", "Next.js", "TypeScript"],
-    },
-    {
-        category: "Mobile",
-        items: ["React Native", "Expo"],
-    },
-    {
-        category: "Styling",
-        items: ["Tailwind CSS", "Sass", "CSS"],
+        category: "Languages",
+        items: ["JavaScript", "Haskell", "Python", "Java", "Dafny"],
     },
     {
         category: "Backend",
-        items: ["Node.js", "Express", "NestJS", "Hono"],
+        items: ["Node.js", "Express.js", "REST", "Testing", "APIs"]
     },
     {
-        category: "Database",
-        items: ["MongoDB", "PostgreSQL"],
+        category: "Frontend",
+        items: ["React.js", "Next.js", "HTML/CSS"],
+    },
+    {
+        category: "Databases",
+        items: ["PostgreSQL", "MongoDB", "MySQL"],
     },
     {
         category: "Dev Tools",
-        items: ["Git", "GitHub", "Docker"],
-    },
+        items: ["Docker", "Git", "GitHub", "Postman", "Linux", "Jira"],
+    }
 ];
 
 const socials = [
@@ -132,28 +128,28 @@ const socials = [
         text: "Github",
         icon: "/icons/github.svg",
         bg: "#f4656b",
-        link: "https://github.com/JavaScript-Mastery-Pro",
+        link: "https://github.com/danielnguyen05",
     },
     {
         id: 2,
-        text: "Platform",
-        icon: "/icons/atom.svg",
+        text: "Email",
+        icon: "/icons/mail.svg",
         bg: "#4bcb63",
-        link: "https://jsmastery.com/",
+        link: "mailto:daniel.ngu05@gmail.com",
     },
     {
         id: 3,
-        text: "Twitter/X",
-        icon: "/icons/twitter.svg",
+        text: "Phone",
+        icon: "/icons/phone.svg",
         bg: "#ff866b",
-        link: "https://x.com/jsmasterypro",
+        link: "tel:0478629887",
     },
     {
         id: 4,
         text: "LinkedIn",
         icon: "/icons/linkedin.svg",
         bg: "#05b6f6",
-        link: "https://www.linkedin.com/company/javascriptmastery/posts/?feedView=all",
+        link: "https://www.linkedin.com/in/daniel-nguyen-30b307306/",
     },
 ];
 
@@ -225,7 +221,7 @@ const WORK_LOCATION = {
         // ▶ Project 1
         {
             id: 5,
-            name: "Nike Ecommerce Website Application",
+            name: "Finova Investment Platform",
             icon: "/images/folder.png",
             kind: "folder",
             position: "top-10 left-5", // icon position inside Finder
@@ -233,44 +229,35 @@ const WORK_LOCATION = {
             children: [
                 {
                     id: 1,
-                    name: "Nike Project.txt",
+                    name: "Finova Investment Platform.txt",
                     icon: "/images/txt.png",
                     kind: "file",
                     fileType: "txt",
                     position: "top-5 left-10",
                     description: [
-                        "The Nike eCommerce website is a sleek and modern platform designed for shopping the latest Nike collections.",
-                        "Instead of a simple online store, it delivers an immersive experience with bold visuals, interactive product displays, and smooth navigation.",
-                        "Think of it like walking into a flagship Nike store—but right from your phone or laptop.",
-                        "It's built with Next.js and Tailwind, ensuring fast performance, responsive design, and a clean, premium look.",
-                    ],
+                        "Finova is a full-stack investment platform designed to help users create and manage personalized investment portfolios.",
+                        "The system provides tools to analyze both real-time and historical market data through interactive dashboards and data-driven visualizations.",
+                        "It incorporates machine learning models to generate portfolio insights and optimization recommendations, supporting informed investment decision-making.",
+                        "Developed using Python, JavaScript, and modern web technologies, the platform emphasizes performance, scalability, and a structured approach to financial data analysis.",
+                    ]
                 },
                 {
                     id: 2,
-                    name: "nike.com",
+                    name: "github.com/finova-investment-platform",
                     icon: "/images/safari.png",
                     kind: "file",
                     fileType: "url",
-                    href: "https://youtu.be/fZdTYswuZjU?si=Awjl-pIst9e09_UU",
+                    href: "https://github.com/danielnguyen05/Finova-Investment-Platform/tree/main",
                     position: "top-10 right-20",
                 },
                 {
-                    id: 4,
-                    name: "nike.png",
+                    id: 3,
+                    name: "finova.png",
                     icon: "/images/image.png",
                     kind: "file",
                     fileType: "img",
                     position: "top-52 right-80",
                     imageUrl: "/images/project-1.png",
-                },
-                {
-                    id: 5,
-                    name: "Design.fig",
-                    icon: "/images/plain.png",
-                    kind: "file",
-                    fileType: "fig",
-                    href: "https://google.com",
-                    position: "top-60 right-20",
                 },
             ],
         },
@@ -278,7 +265,7 @@ const WORK_LOCATION = {
         // ▶ Project 2
         {
             id: 6,
-            name: "AI Resume Analyzer",
+            name: "Face Recognition Authentication System",
             icon: "/images/folder.png",
             kind: "folder",
             position: "top-52 right-80",
@@ -286,44 +273,26 @@ const WORK_LOCATION = {
             children: [
                 {
                     id: 1,
-                    name: "AI Resume Analyzer Project.txt",
+                    name: "Face Recognition Authentication System.txt",
                     icon: "/images/txt.png",
                     kind: "file",
                     fileType: "txt",
                     position: "top-5 right-10",
                     description: [
-                        "AI Resume Analyzer is a smart tool that helps you perfect your resume with instant feedback.",
-                        "Instead of guessing what recruiters want, you get AI-powered insights on keywords, formatting, and overall impact.",
-                        "Think of it like having a career coach—pointing out strengths, fixing weaknesses, and boosting your chances of landing interviews.",
-                        "It's built with Next.js and Tailwind, so it runs fast, looks professional, and works seamlessly on any device.",
-                    ],
+                        "A facial recognition authentication system designed to securely verify user identities using computer vision techniques.",
+                        "The platform captures live facial input and applies recognition algorithms to perform real-time identity validation.",
+                        "Following authentication, the system enables secure digital signature capture through gesture-based interaction, combining biometric verification with user-driven input.",
+                        "Developed in Python using OpenCV, the project focuses on real-time processing, accuracy optimization, and reliable identity verification workflows.",
+                    ]
                 },
                 {
                     id: 2,
-                    name: "ai-resume-analyzer.com",
+                    name: "github.com/face-recognition-authentication",
                     icon: "/images/safari.png",
                     kind: "file",
                     fileType: "url",
-                    href: "https://youtu.be/iYOz165wGkQ?si=R1hs8Legl200m0Cl",
+                    href: "https://github.com/danielnguyen05/FaceRecognitionProject",
                     position: "top-20 left-20",
-                },
-                {
-                    id: 4,
-                    name: "ai-resume-analyzer.png",
-                    icon: "/images/image.png",
-                    kind: "file",
-                    fileType: "img",
-                    position: "top-52 left-80",
-                    imageUrl: "/images/project-2.png",
-                },
-                {
-                    id: 5,
-                    name: "Design.fig",
-                    icon: "/images/plain.png",
-                    kind: "file",
-                    fileType: "fig",
-                    href: "https://google.com",
-                    position: "top-60 left-5",
                 },
             ],
         },
@@ -331,7 +300,7 @@ const WORK_LOCATION = {
         // ▶ Project 3
         {
             id: 7,
-            name: "Food Delivery App",
+            name: "Bevoguard",
             icon: "/images/folder.png",
             kind: "folder",
             position: "top-10 left-80",
@@ -339,44 +308,35 @@ const WORK_LOCATION = {
             children: [
                 {
                     id: 1,
-                    name: "Food Delivery App Project.txt",
+                    name: "Bevoguard.txt",
                     icon: "/images/txt.png",
                     kind: "file",
                     fileType: "txt",
                     position: "top-5 left-10",
                     description: [
-                        "Our Food Delivery App is a fast and convenient way to order meals from your favorite restaurants.",
-                        "Instead of making calls or waiting in line, you can browse menus, customize orders, and track deliveries in real time.",
-                        "Think of it like having your favorite restaurants in your pocket—ready to deliver anytime, anywhere.",
-                        "It’s built with React Native, so it works smoothly on both iOS and Android with a clean, modern design.",
-                    ],
+                        "BevoGuard is a full-stack civic safety platform that aggregates official city incident data, campus police logs, weather alerts, and local news to help users understand real-time safety conditions in Austin, Texas.",
+                        "The system integrates multiple external APIs and data sources, processes and links events, locations, and resources through a structured relational model, and presents safety scores and incident insights via interactive maps and visualizations.",
+                        "The backend exposes RESTful APIs for event retrieval, pagination, and data filtering, while containerized services and CI/CD pipelines ensure reliable deployment and scalability.",
+                        "Designed to improve public awareness and accessibility of city safety data, the platform focuses on data integration, backend architecture, API design, and end-to-end system deployment.",
+                    ]
                 },
                 {
                     id: 2,
-                    name: "food-delivery-app.com",
+                    name: "gitlab.com/bevoguard",
                     icon: "/images/safari.png",
                     kind: "file",
                     fileType: "url",
-                    href: "https://youtu.be/LKrX390fJMw?si=cExkuVhf2DTV9G2-",
+                    href: "https://gitlab.com/gautham.saravanan-cs373/cs373-bevoguard",
                     position: "top-10 right-20",
                 },
                 {
-                    id: 4,
-                    name: "food-delivery-app.png",
-                    icon: "/images/image.png",
+                    id: 3,
+                    name: "bevoguard_demo.mp4",
+                    icon: "/images/safari.png",
                     kind: "file",
-                    fileType: "img",
-                    position: "top-52 right-80",
-                    imageUrl: "/images/project-3.png",
-                },
-                {
-                    id: 5,
-                    name: "Design.fig",
-                    icon: "/images/plain.png",
-                    kind: "file",
-                    fileType: "fig",
-                    href: "https://google.com",
-                    position: "top-60 right-20",
+                    fileType: "url",
+                    href: "https://drive.google.com/file/d/12WSPhk16BPZISZRNQyqMQD4C6BXbPxjn/view",
+                    position: "top-60 right-10",
                 },
             ],
         },
@@ -410,7 +370,7 @@ const ABOUT_LOCATION = {
         },
         {
             id: 3,
-            name: "conference-me.png",
+            name: "seaworld-me.png",
             icon: "/images/image.png",
             kind: "file",
             fileType: "img",
@@ -424,13 +384,13 @@ const ABOUT_LOCATION = {
             kind: "file",
             fileType: "txt",
             position: "top-60 left-5",
-            subtitle: "Meet the Developer Behind the Code",
+            subtitle: "Hi, I’m Daniel!",
             image: "/images/adrian.jpg",
             description: [
-                "Hey! I’m Adrian 👋, a web developer who enjoys building sleek, interactive websites that actually work well.",
-                "I specialize in JavaScript, React, and Next.js—and I love making things feel smooth, fast, and just a little bit delightful.",
-                "I’m big on clean UI, good UX, and writing code that doesn’t need a search party to debug.",
-                "Outside of dev work, you'll find me tweaking layouts at 2AM, sipping overpriced coffee, or impulse-buying gadgets I absolutely convinced myself I needed 😅",
+                "I study Computer Science at Monash University. I enjoy building unique, interactive, and engaging things that feel creative, a little outside the box, and fun to use.",
+                "I like solving problems that make technology feel more intuitive for people, and I’m always learning something new (usually by breaking things first).",
+                "I spend a lot of time working with modern technologies and I’m always trying to improve how I write code specifically focusing on clean architecture, efficiency, and building systems that are reliable, maintainable, and easy to extend.",
+                "Outside of coding and uni life, you’ll usually find me at the gym, kicking butt (literally), or doing something active just to reset. I’m big on going outside too, whether it’s long walks in nature, going through the occasional photography phase, or just doing anything that gets me moving and away from a screen for a bit 😁"
             ],
         },
     ],
@@ -449,8 +409,6 @@ const RESUME_LOCATION = {
             icon: "/images/pdf.png",
             kind: "file",
             fileType: "pdf",
-            // you can add `href` if you want to open a hosted resume
-            // href: "/your/resume/path.pdf",
         },
     ],
 };
@@ -464,21 +422,43 @@ const TRASH_LOCATION = {
     children: [
         {
             id: 1,
-            name: "trash1.png",
-            icon: "/images/image.png",
+            name: "sleep_schedule.txt",
+            icon: "/images/txt.png",
             kind: "file",
-            fileType: "img",
+            fileType: "txt",
             position: "top-10 left-10",
-            imageUrl: "/images/trash-1.png",
+            description: ["Sleep Schedule v1.0",
+                "Mon: 10:30 PM",
+                "Tue: 10:30 PM",
+                "Wed: 10:30 PM",
+                "Thu: 10:30 PM",
+                "Fri: 10:30 PM",
+                "Error: Schedule integrity compromised.",
+                "Detected irregularities:",
+                "02:14 AM — “just one more video”",
+                "03:07 AM — debugging something that worked",
+                "03:42 AM — existential thoughts",
+                "04:01 AM — why is my brain like this",
+                "File corrupted beyond recovery."
+            ]
         },
         {
             id: 2,
-            name: "trash2.png",
+            name: "final_final_final_REAL_v9_THIS_ONE (9).png",
             icon: "/images/image.png",
             kind: "file",
             fileType: "img",
             position: "top-40 left-80",
             imageUrl: "/images/trash-2.png",
+        },
+        {
+            id: 3,
+            name: "billion_dollar_app_idea_that_would_make_me_rich.txt",
+            icon: "/images/txt.png",
+            kind: "file",
+            fileType: "txt",
+            position: "top-60 left-10",
+            description: []
         },
     ],
 };

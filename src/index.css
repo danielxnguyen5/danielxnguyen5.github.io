@@ -394,4 +394,36 @@ body {
             }
         }
     }
+
+    .dock-minimized-tray {
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        margin-left: 10px;
+    }
+
+    .dock-min-icon img {
+        width: 75px;  /* match your dock icons */
+        height: 75px;
+        border-radius: 12px;
+    }
+
+    .dock-tray-group {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .dock-separator {
+        width: 1px;
+        height: 28px; /* tweak */
+        background: rgba(255, 255, 255, 0.55);
+        margin: 0 10px; /* space around the line */
+        border-radius: 999px;
+    }
+
+    /* ensure this exists */
+    .hidden {
+        display: none !important;
+    }
 }

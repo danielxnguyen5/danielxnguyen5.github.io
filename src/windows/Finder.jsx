@@ -37,7 +37,7 @@ const Finder = () => {
 
     return <>
         <div id='window-header'>
-            <WindowControls title='finder' />
+            <WindowControls target='finder' />
             <Search className='icon' />
 
         </div>
