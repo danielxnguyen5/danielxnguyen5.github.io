@@ -357,7 +357,7 @@ const ABOUT_LOCATION = {
             kind: "file",
             fileType: "img",
             position: "top-10 left-5",
-            imageUrl: "/images/adrian.jpg",
+            imageUrl: "/images/daniel.jpg",
         },
         {
             id: 2,
@@ -366,7 +366,7 @@ const ABOUT_LOCATION = {
             kind: "file",
             fileType: "img",
             position: "top-28 right-72",
-            imageUrl: "/images/adrian-2.jpg",
+            imageUrl: "/images/daniel-2.jpg",
         },
         {
             id: 3,
@@ -375,7 +375,7 @@ const ABOUT_LOCATION = {
             kind: "file",
             fileType: "img",
             position: "top-52 left-80",
-            imageUrl: "/images/adrian-3.jpeg",
+            imageUrl: "/images/daniel-3.jpeg",
         },
         {
             id: 4,
@@ -385,7 +385,7 @@ const ABOUT_LOCATION = {
             fileType: "txt",
             position: "top-60 left-5",
             subtitle: "Hi, I’m Daniel!",
-            image: "/images/adrian.jpg",
+            image: "/images/daniel.jpg",
             description: [
                 "I study Computer Science at Monash University. I enjoy building unique, interactive, and engaging things that feel creative, a little outside the box, and fun to use.",
                 "I like solving problems that make technology feel more intuitive for people, and I’m always learning something new (usually by breaking things first).",

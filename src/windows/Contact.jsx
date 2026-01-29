@@ -11,7 +11,7 @@ export const Contact = () => {
         </div>
 
         <div className="p-5 space-y-5">
-            <img src="/images/adrian.jpg" alt="Adrian" className="w-20 rounded-full" />
+            <img src="/images/daniel.jpg" alt="Adrian" className="w-20 rounded-full" />
             <h3>Let's connect</h3>
             <p>Interested in working together or have something in mind? I’d love to hear from you!</p>
             <ul>
