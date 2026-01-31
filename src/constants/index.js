@@ -379,6 +379,15 @@ const ABOUT_LOCATION = {
         },
         {
             id: 4,
+            name: "kicking-me.png",
+            icon: "/images/image.png",
+            kind: "file",
+            fileType: "img",
+            position: "top-22 left-75",
+            imageUrl: "/images/daniel-4.jpg",
+        },
+        {
+            id: 5,
             name: "about-me.txt",
             icon: "/images/txt.png",
             kind: "file",

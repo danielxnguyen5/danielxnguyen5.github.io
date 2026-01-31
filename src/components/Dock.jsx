@@ -52,7 +52,6 @@ const Dock = () => {
         dock.addEventListener("mousemove", handleMouseMove);
         dock.addEventListener("mouseleave", resetIcons);
 
-        // ✅ Auto-hide separator group when tray is empty
         const tray = document.getElementById("dock-minimized-tray");
         const group = document.getElementById("dock-tray-group");
 
@@ -77,7 +76,6 @@ const Dock = () => {
         };
     }, []);
 
-    // ✅ If minimized (tray icon exists + window display none), clicking main dock icon restores it
     const toggleApp = (id, canOpen) => {
         if (!canOpen) return;
 
@@ -87,24 +85,20 @@ const Dock = () => {
         const trayIcon = document.querySelector(`[data-minwin="${id}"]`);
         const winEl = document.getElementById(id);
 
-        // If minimized, restore by "clicking" the tray icon (reuses your existing restore animation)
         if (winEl && winEl.style.display === "none" && trayIcon) {
             trayIcon.click();
             return;
         }
 
-        // Normal toggle behavior
         if (win.isOpen) closeWindow(id);
         else openWindow(id);
     };
 
-    // OPTIONAL: if you have trash as an app id, set it here so we can place tray right before it.
     const TRASH_ID = "trash";
 
     return (
         <section id="dock">
             <div ref={dockRef} className="dock-container">
-                {/* Normal apps */}
                 {dockApps
                     .filter((a) => a.id !== TRASH_ID)
                     .map(({ id, name, icon, canOpen }) => (
@@ -130,13 +124,11 @@ const Dock = () => {
                         </div>
                     ))}
 
-                {/* ✅ Separator + Minimized tray */}
                 <div id="dock-tray-group" className="dock-tray-group hidden">
                     <div className="dock-separator" aria-hidden="true" />
                     <div id="dock-minimized-tray" className="dock-minimized-tray" />
                 </div>
 
-                {/* Trash at the end */}
                 {dockApps
                     .filter((a) => a.id === TRASH_ID)
                     .map(({ id, name, icon, canOpen }) => (
