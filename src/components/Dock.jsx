@@ -1,6 +1,8 @@
 // Dock.jsx
 import React, { useRef } from "react";
-import { dockApps } from "#constants/index.js";
+import { dockApps, locations } from "#constants/index.js";
+import useLocationStore from "#store/location.js";
+import { setOrigin } from "#store/origin.js";
 import { Tooltip } from "react-tooltip";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -8,12 +10,15 @@ import useWindowStore from "#store/window.js";
 
 const Dock = () => {
     const { openWindow, closeWindow, windows } = useWindowStore();
+    const { setActiveLocation } = useLocationStore();
     const dockRef = useRef(null);
+    const TRASH_ID = "trash";
 
     useGSAP(() => {
         const dock = dockRef.current;
         if (!dock) return;
 
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const icons = dock.querySelectorAll(".dock-icon");
 
         const animateIcons = (mouseX) => {
@@ -49,8 +54,10 @@ const Dock = () => {
                 })
             );
 
-        dock.addEventListener("mousemove", handleMouseMove);
-        dock.addEventListener("mouseleave", resetIcons);
+        if (!reduce) {
+            dock.addEventListener("mousemove", handleMouseMove);
+            dock.addEventListener("mouseleave", resetIcons);
+        }
 
         const tray = document.getElementById("dock-minimized-tray");
         const group = document.getElementById("dock-tray-group");
@@ -76,8 +83,25 @@ const Dock = () => {
         };
     }, []);
 
-    const toggleApp = (id, canOpen) => {
+    // The launch bounce, like macOS: the icon hops a few times as the app opens.
+    const bounce = (button) => {
+        const img = button?.querySelector("img");
+        if (!img || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        gsap.killTweensOf(img);
+        gsap.fromTo(img, { y: 0 }, { y: -18, duration: 0.2, ease: "power2.out", yoyo: true, repeat: 3, onComplete: () => gsap.set(img, { y: 0 }) });
+    };
+
+    const toggleApp = (id, canOpen, button) => {
         if (!canOpen) return;
+        setOrigin(button);
+
+        // Trash opens Finder at the Trash folder.
+        if (id === TRASH_ID) {
+            setActiveLocation(locations.trash);
+            if (!windows.finder.isOpen) bounce(button);
+            openWindow("finder");
+            return;
+        }
 
         const win = windows[id];
         if (!win) return;
@@ -91,10 +115,11 @@ const Dock = () => {
         }
 
         if (win.isOpen) closeWindow(id);
-        else openWindow(id);
+        else {
+            bounce(button);
+            openWindow(id);
+        }
     };
-
-    const TRASH_ID = "trash";
 
     return (
         <section id="dock">
@@ -112,7 +137,7 @@ const Dock = () => {
                                 data-tooltip-delay-show={150}
                                 disabled={!canOpen}
                                 data-windowkey={id}
-                                onClick={() => toggleApp(id, canOpen)}
+                                onClick={(e) => toggleApp(id, canOpen, e.currentTarget)}
                             >
                                 <img
                                     src={`/images/${icon}`}
@@ -121,6 +146,7 @@ const Dock = () => {
                                     className={canOpen ? "" : "opacity-60"}
                                 />
                             </button>
+                            {windows[id]?.isOpen && <span className="dock-dot" aria-hidden="true" />}
                         </div>
                     ))}
 
@@ -142,7 +168,7 @@ const Dock = () => {
                                 data-tooltip-delay-show={150}
                                 disabled={!canOpen}
                                 data-windowkey={id}
-                                onClick={() => toggleApp(id, canOpen)}
+                                onClick={(e) => toggleApp(id, canOpen, e.currentTarget)}
                             >
                                 <img
                                     src={`/images/${icon}`}

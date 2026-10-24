@@ -1,36 +1,36 @@
-import React from 'react'
-import {locations} from "#constants/index.js";
-import clsx from "clsx";
-import {useGSAP} from "@gsap/react";
-import { Draggable} from "gsap/Draggable";
+import React from "react";
+import { locations } from "#constants/index.js";
 import useWindowStore from "#store/window.js";
 import useLocationStore from "#store/location.js";
+import { setOrigin } from "#store/origin.js";
 
-const projects = locations.work?.children ?? []
+const projects = locations.work?.children ?? [];
 
+// Desktop icons, stacked down the right edge like macOS.
 const Home = () => {
     const { setActiveLocation } = useLocationStore();
     const { openWindow } = useWindowStore();
 
-    const handleOpenProjectFinder = (project) => {
+    const open = (project, el) => {
+        setOrigin(el.querySelector("img"));
         setActiveLocation(project);
-        openWindow('finder');
-    }
-    useGSAP(() => {
-        Draggable.create('.folder')
-    }, [])
+        openWindow("finder");
+    };
 
     return (
-        <section id='home'>
+        <section id="home" aria-label="Desktop">
             <ul>
                 {projects.map((project) => (
-                    <li key={project.id} className={clsx("group folder", project.windowPosition)} onClick={() => handleOpenProjectFinder(project)}>
-                        <img src="/images/folder.png" alt={project.name} />
-                        <p>{project.name}</p>
+                    <li key={project.id}>
+                        <button type="button" className="desktop-icon" onClick={(e) => open(project, e.currentTarget)}>
+                            <img src="/images/folder.png" alt="" />
+                            <span>{project.name}</span>
+                        </button>
                     </li>
                 ))}
             </ul>
         </section>
-    )
-}
-export default Home
+    );
+};
+
+export default Home;

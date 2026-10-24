@@ -1,32 +1,42 @@
-import React from 'react'
+import React from "react";
 import WindowWrapper from "#hoc/WindowWrapper.jsx";
-import {socials} from "#constants/index.js";
-import {WindowControls} from "#components";
+import { socials } from "#constants/index.js";
+import { WindowControls } from "#components";
 
-export const Contact = () => {
-    return <>
-        <div id="window-header">
+export const Contact = () => (
+    <>
+        <div className="window-header">
             <WindowControls target="contact" />
-            <h2>Contact Me</h2>
+            <h2>Contact</h2>
+            <span className="w-16" aria-hidden="true" />
         </div>
 
-        <div className="p-5 space-y-5">
-            <img src="/images/daniel.jpg" alt="Adrian" className="w-20 rounded-full" />
-            <h3>Let's connect</h3>
-            <p>Interested in working together or have something in mind? I’d love to hear from you!</p>
-            <ul>
-                {socials.map(({ id, bg, link, icon, text }) => (
-                    <li key={id} style={{ backgroundColor: bg }}>
-                        <a href={link} target="_blank" rel="noopener noreferrer" title={text}>
-                            <img src={icon} alt={text} className="size-5" />
-                            <p>{text}</p>
+        <div className="contact-body">
+            <div className="contact-card">
+                <img src="/images/daniel.jpg" alt="Daniel Nguyen" />
+                <div>
+                    <h3>Daniel Nguyen</h3>
+                    <p>Computer Science, Monash University</p>
+                    <p>Melbourne, Australia</p>
+                </div>
+            </div>
+
+            <ul className="contact-rows">
+                {socials.map(({ id, link, icon, text, value }) => (
+                    <li key={id}>
+                        <a href={link} target={link.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+                            <span className="contact-label">{text}</span>
+                            <span className="contact-value">
+                                <img src={icon} alt="" />
+                                {value}
+                            </span>
                         </a>
                     </li>
                 ))}
             </ul>
         </div>
     </>
-}
+);
 
-const ContactWindow = WindowWrapper(Contact, "contact")
-export default ContactWindow
+const ContactWindow = WindowWrapper(Contact, "contact");
+export default ContactWindow;

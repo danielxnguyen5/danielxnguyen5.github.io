@@ -3,58 +3,45 @@ import WindowControls from "#components/WindowControls";
 import { gallery, photosLinks } from "#constants";
 import useWindowStore from "#store/window.js";
 import WindowWrapper from "#hoc/WindowWrapper.jsx";
-import { Mail, Search } from "lucide-react";
 
 const Photos = () => {
     const { openWindow } = useWindowStore();
 
-    const handleOpenImage = (id, img) => {
-        openWindow("imgfile", {
-            id,
-            name: "Gallery image",
-            icon: "/images/image.png",
-            kind: "file",
-            fileType: "img",
-            imageUrl: img,
-        });
-    };
+    const open = (id, img) =>
+        openWindow("imgfile", { id, name: `Photo ${id}`, icon: "/images/image.png", kind: "file", fileType: "img", imageUrl: img });
 
     return (
         <>
-            <div id="window-header">
+            <div className="window-header">
                 <WindowControls target="photos" />
-                <div className="w-full flex justify-end items-center gap-3 text-gray-500">
-                    <Mail className="icon" />
-                    <Search className="icon" />
-                </div>
+                <h2>Gallery</h2>
+                <span className="w-16" aria-hidden="true" />
             </div>
 
-            <div className="flex w-full">
-                <div className="sidebar">
-                    <h2>Photos</h2>
+            <div className="photos-body">
+                <aside className="sidebar">
+                    <h3>Photos</h3>
                     <ul>
                         {photosLinks.map(({ id, icon, title }) => (
                             <li key={id}>
-                                <img src={icon} alt={title} />
-                                <p>{title}</p>
+                                <button type="button" aria-current={id === 1}>
+                                    <img src={icon} alt="" />
+                                    <span>{title}</span>
+                                </button>
                             </li>
                         ))}
                     </ul>
-                </div>
+                </aside>
 
-                <div className="gallery">
-                    <ul>
-                        {gallery.map(({ id, img }) => (
-                            <li
-                                key={id}
-                                onClick={() => handleOpenImage(id, img)}
-                                className="cursor-pointer"
-                            >
-                                <img src={img} alt={`Gallery image ${id}`} />
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <ul className="gallery">
+                    {gallery.map(({ id, img }) => (
+                        <li key={id}>
+                            <button type="button" onClick={() => open(id, img)} aria-label={`Open photo ${id}`}>
+                                <img src={img} alt="" loading="lazy" />
+                            </button>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </>
     );

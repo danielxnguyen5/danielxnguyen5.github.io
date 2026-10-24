@@ -1,64 +1,38 @@
-import React from 'react'
+import React from "react";
 import dayjs from "dayjs";
 import WindowWrapper from "#hoc/WindowWrapper.jsx";
 import { techStack } from "#constants/index.js";
-import { Check, Flag } from "lucide-react";
-import {WindowControls} from "#components/index.js";
+import { WindowControls } from "#components/index.js";
 
 const Terminal = () => {
     const lastLogin = dayjs().format("ddd MMM DD HH:mm:ss");
 
-    return <>
-        <div id='window-header'>
-            <WindowControls target="terminal"/>
-            <h2>Daniel's Tech Stack — -zsh — 80×24</h2>
-        </div>
-        <div className='techstack'>
-            <p>
-                Last login: {lastLogin} on ttys005
-            </p>
-
-            <p>
-                <span className="font-bold">
-                    daniel@stack-MacBook-Pro ~ % </span>
-                show tech stack
-            </p>
-
-            <div className="label">
-                <p className='w-32'>Category</p>
-                <p>Technologies</p>
+    return (
+        <>
+            <div className="window-header">
+                <WindowControls target="terminal" />
+                <h2>daniel — zsh — 84×26</h2>
+                <span className="w-16" aria-hidden="true" />
             </div>
 
-            <ul className='content'>
-                {techStack.map(({ category, items }) => (
-                    <li key={category} className='flex items-center'>
-                        <Check className="check" size={20} />
-                        <h3>{category}</h3>
-                        <ul>
-                            {items.map((item, i) => (
-                                <li key={i}>
-                                    {item}
-                                    {i < items.length - 1 ? "," : ""}
-                                </li>
-                            ))}
-                        </ul>
-                    </li>
-                ))}
-            </ul>
+            <div className="terminal-body">
+                <p className="muted">Last login: {lastLogin} on ttys001</p>
+                <p><span className="prompt">daniel@monash ~ %</span> skills --all</p>
 
-            <div className="footnote">
-                <p>
-                    <Check size={20} /> 5 of 5 stacks loaded successfully (100%)
-                </p>
+                <dl>
+                    {techStack.map(({ category, items }) => (
+                        <div key={category}>
+                            <dt>{category}</dt>
+                            <dd>{items.join(" ")}</dd>
+                        </div>
+                    ))}
+                </dl>
 
-                <p className='text-black'>
-                    <Flag size={15} fill="black" />
-                    Render time: 6ms
-                </p>
+                <p><span className="prompt">daniel@monash ~ %</span> <span className="cursor" aria-hidden="true" /></p>
             </div>
-        </div>
-    </>
-}
+        </>
+    );
+};
 
-const TerminalWindow = WindowWrapper(Terminal, 'terminal');
-export default TerminalWindow
+const TerminalWindow = WindowWrapper(Terminal, "terminal");
+export default TerminalWindow;

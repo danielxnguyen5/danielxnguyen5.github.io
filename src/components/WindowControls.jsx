@@ -202,8 +202,8 @@ const WindowControls = ({ target }) => {
         el.classList.add("maximized");
         gsap.to(el, {
             width: "100vw",
-            height: "100vh",
-            top: 0,
+            height: "calc(100dvh - 28px)",
+            top: 28,
             left: 0,
             x: 0,
             y: 0,
@@ -214,10 +214,10 @@ const WindowControls = ({ target }) => {
     };
 
     return (
-        <div id="window-controls">
-            <div className="close" onClick={() => closeWindow(target)} />
-            <div className="minimize" onClick={handleMinimize} />
-            <div className="maximize" onClick={handleMaximize} />
+        <div className="window-controls">
+            <button type="button" className="close" aria-label="Close window" onClick={() => closeWindow(target)} />
+            <button type="button" className="minimize" aria-label="Minimise window" onClick={handleMinimize} />
+            <button type="button" className="maximize" aria-label="Zoom window" onClick={handleMaximize} />
         </div>
     );
 };

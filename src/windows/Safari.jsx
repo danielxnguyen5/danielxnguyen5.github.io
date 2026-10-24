@@ -1,63 +1,60 @@
-import React from 'react'
-import {WindowControls} from "#components";
+import React from "react";
+import { WindowControls } from "#components";
 import WindowWrapper from "#hoc/WindowWrapper.jsx";
-import {ChevronLeft, ChevronRight, PanelLeft, ShieldHalf, Share, Plus, Copy, Search, MoveRight} from "lucide-react";
-import {blogPosts} from "#constants/index.js";
+import { ChevronLeft, ChevronRight, Lock } from "lucide-react";
+import { articles } from "#constants/index.js";
+import useWindowStore from "#store/window.js";
 
-export const Safari = () => {
-    return <>
-        <div id='window-header'>
-            <WindowControls target='safari'/>
-            <PanelLeft className='ml-10 icon' />
+// "Articles": a small Safari-styled reader for project write-ups.
+const Safari = () => {
+    const { windows, openWindow } = useWindowStore();
+    const index = Math.max(0, articles.findIndex((a) => a.id === windows.safari.data?.articleId));
+    const article = articles[index];
+    const go = (i) => openWindow("safari", { articleId: articles[i].id });
 
-            <div className='flex items-center gap-1 ml-5'>
-                <ChevronLeft className='icon' />
-                <ChevronRight className='icon' />
-            </div>
-
-            <div className='flex-1 flex-center gap-3'>
-                <ShieldHalf className='icon' />
-                <div className='search'>
-                    <Search className='icon'/>
-                    <input type='text' placeholder='Search or enter website name' className='flex-1' />
+    return (
+        <>
+            <div className="window-header">
+                <WindowControls target="safari" />
+                <div className="safari-nav">
+                    <button type="button" className="tool" onClick={() => go(index - 1)} disabled={index === 0} aria-label="Previous article">
+                        <ChevronLeft size={18} />
+                    </button>
+                    <button type="button" className="tool" onClick={() => go(index + 1)} disabled={index === articles.length - 1} aria-label="Next article">
+                        <ChevronRight size={18} />
+                    </button>
                 </div>
+                <div className="address">
+                    <Lock size={12} aria-hidden="true" />
+                    <span>danielnguyen.dev/articles/{article.id}</span>
+                </div>
+                <span className="w-16" aria-hidden="true" />
             </div>
 
-            <div className='flex items-center gap-5'>
-                <Share className='icon' />
-                <Plus className='icon' />
-                <Copy className='icon' />
+            <div className="safari-body">
+                <aside className="reading-list">
+                    <h3>Articles</h3>
+                    <ul>
+                        {articles.map((a, i) => (
+                            <li key={a.id}>
+                                <button type="button" aria-current={i === index} onClick={() => go(i)}>
+                                    <span className="rl-title">{a.title}</span>
+                                    <span className="rl-meta">{a.project}, {a.readTime}</span>
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </aside>
+
+                <article className="reader" key={article.id}>
+                    <p className="reader-project">{article.project}</p>
+                    <h1>{article.title}</h1>
+                    {article.body.map((para, i) => <p key={i}>{para}</p>)}
+                </article>
             </div>
-        </div>
+        </>
+    );
+};
 
-        {/* BLOG CONTENT (COMING SOON) */}
-        <div className='blog flex items-center justify-center h-[60vh] text-center'>
-            <h2 className="text-4xl font-semibold text-gray-500">🚧   Coming Soon</h2>
-        </div>
-
-        {/*
-        <div className='blog'>
-            <h2>My Developer Blog</h2>
-            <div className='space-y-8'>
-                {blogPosts.map(({ id, image, title, date, link }) => (
-                    <div key={id} className='blog-post'>
-                        <div className='col-span-2'>
-                            <img src={image} alt={title} />
-                        </div>
-                        <div className='content'>
-                            <p>{date}</p>
-                            <h3>{title}</h3>
-                            <a href={link} target='_blank' rel='noopener noreferrer'>
-                                Check out the full post <MoveRight className='icon-hover' />
-                            </a>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-        */}
-    </>
-}
-
-const SafariWindow = WindowWrapper(Safari, 'safari');
+const SafariWindow = WindowWrapper(Safari, "safari");
 export default SafariWindow;

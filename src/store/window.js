@@ -21,9 +21,8 @@ const useWindowStore = create(
             set((state) => {
                 const win = state.windows[windowKey];
                 if (!win) return;
+                // Keep data and z-index so the window can animate closed with its content intact.
                 win.isOpen = false;
-                win.zIndex = INITIAL_Z_INDEX;
-                win.data = null;
             }),
 
         focusWindow: (windowKey) =>
